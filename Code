@@ -1,0 +1,237 @@
+install.packages("dfcrm")
+install.packages("wakefield")
+k<-age(100,18:65)
+p<-as.factor(sample(c(0,1),replace = TRUE,size = 100))
+s<-sex(100)
+df<-data.frame(age = k,sex = s,tox = p)
+df
+dose<-sample(c(1:5),replace = TRUE,size = 100)
+dose<-as.factor(dose)
+df<-cbind(df,dose)
+summary(df)
+a<-df %>%
+  filter(dose==1) 
+a
+b<-length(a$dose)
+b
+a<-a %>%
+  filter(tox==1)
+c<-length(a$dose)
+c
+proba1<-c/b
+proba1
+proba2<-sum(df$dose==1 & df$tox==1)/sum(df$dose==1)
+proba2
+probaAll<-c()
+for(i in 1:5){
+  probaAll<-c(probaAll,sum(df$dose==i & df$tox==1)/sum(df$dose==i))
+}
+probaAll
+
+
+
+#seance 2
+
+require(dfcrm)
+prob<- c(0.05,0.1,0.15,0.2,0.3)
+df<-data.frame(d1=(sample(c(0,1),replace = TRUE,size = 30,prob=c(1-prob[1],prob[1]))))
+for(i in 2:5){
+  p<-sample(c(0,1),replace = TRUE,size = 30,prob=c(1-prob[i],prob[i]))
+  df<-cbind(df,p)
+}
+colnames(df)<-c("d1","d2","d3","d4","d5")
+df
+prior<-c(0.05,0.1,0.2,0.35,0.5,0.7)
+target<-0.2
+level<-c(3,4)
+y<-c(0,1)
+
+#patient1
+foo<-crm(prior,target,y,level)
+foo1<-crm(prior,target,y,level,model="logistic")
+foo2<-crm(prior,target,y,level,method="mle")
+foo
+foo1
+
+#patient2
+foo_pt2<-crm(prior,target,y,level)
+foo1_pt2<-crm(prior,target,y,level,method = "mle")
+foo2_pt2<-crm(prior,target,y,level,model="logistic")
+foo3_pt2<-crm(prior,target,y,level,model="logistic",method="mle")
+foo_pt2
+foo1_pt2
+foo2_pt2
+foo3_pt2
+
+#patient3
+level<-c(3,4,2)
+y<-c(0,1,0)
+foo_pt3<-crm(prior,target,y,level)
+foo_pt3
+
+#patient4
+level<-c(3,4,2,2)
+y<-c(0,1,0,0)
+foo_pt4<-crm(prior,target,y,level)
+foo_pt4
+
+#patient5
+level<-c(3,4,2,2,3)
+y<-c(0,1,0,0,0)
+foo_pt5<-crm(prior,target,y,level)
+foo_pt5
+
+#patient6
+level<-c(3,4,2,2,3,3)
+y<-c(0,1,0,0,0,0)
+foo_pt6<-crm(prior,target,y,level)
+foo_pt6
+
+#patient7
+level<-c(3,4,2,2,3,3,3)
+y<-c(0,1,0,0,0,0,0)
+foo_pt7<-crm(prior,target,y,level)
+foo_pt7
+
+#patient8
+level<-c(3,4,2,2,3,3,3,4)
+y<-c(0,1,0,0,0,0,0,1)
+foo_pt8<-crm(prior,target,y,level)
+foo_pt8
+
+#patient9
+level<-c(3,4,2,2,3,3,3,4,3)
+y<-c(0,1,0,0,0,0,0,1,0)
+foo_pt9<-crm(prior,target,y,level)
+foo_pt9
+
+#patient10
+level<-c(3,4,2,2,3,3,3,4,3,3)
+y<-c(0,1,0,0,0,0,0,1,0,0)
+foo_pt10<-crm(prior,target,y,level)
+foo_pt10
+
+#patient11
+level<-c(3,4,2,2,3,3,3,4,3,3,3)
+y<-c(0,1,0,0,0,0,0,1,0,0,1)
+foo_pt11<-crm(prior,target,y,level)
+foo_pt11
+
+#patient12
+level<-c(3,4,2,2,3,3,3,4,3,3,3,3)
+y<-c(0,1,0,0,0,0,0,1,0,0,1,0)
+foo_pt12<-crm(prior,target,y,level)
+foo_pt12
+
+#patient13
+level<-c(3,4,2,2,3,3,3,4,3,3,3,3,3)
+y<-c(0,1,0,0,0,0,0,1,0,0,1,0,0)
+foo_pt13<-crm(prior,target,y,level)
+foo_pt13
+
+#patient14
+level<-c(3,4,2,2,3,3,3,4,3,3,3,3,3)
+y<-c(0,1,0,0,0,0,0,1,0,0,1,0,0,0)
+foo_pt14<-crm(prior,target,y,level)
+foo_pt14
+
+#patient15
+level<-c(3,4,2,2,3,3,3,4,3,3,3,3,3,3)
+y<-c(0,1,0,0,0,0,0,1,0,0,1,0,0,0,0)
+foo_pt15<-crm(prior,target,y,level)
+foo_pt15
+
+#patient16
+level<-c(3,4,2,2,3,3,3,4,3,3,3,3,3,3)
+y<-c(0,1,0,0,0,0,0,1,0,0,1,0,0,0,0)
+foo_pt16<-crm(prior,target,y,level)
+foo_pt16
+
+#patient17
+level<-c(3,4,2,2,3,3,3,4,3,3,3,3,3,3,3)
+y<-c(0,1,0,0,0,0,0,1,0,0,1,0,0,0,0,0)
+foo_pt17<-crm(prior,target,y,level)
+foo_pt17
+
+#patient18
+level<-c(3,4,2,2,3,3,3,4,3,3,3,3,3,3,3,3)
+y<-c(0,1,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0)
+foo_pt18<-crm(prior,target,y,level)
+foo_pt18
+
+#patient19
+level<-c(3,4,2,2,3,3,3,4,3,3,3,3,3,3,3,3,3)
+y<-c(0,1,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0)
+foo_pt19<-crm(prior,target,y,level)
+foo_pt19
+
+#patient20
+level<-c(3,4,2,2,3,3,3,4,3,3,3,3,3,3,3,3,3,3)
+y<-c(0,1,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0)
+foo_pt20<-crm(prior,target,y,level)
+foo_pt20
+
+#patient21
+level<-c(3,4,2,2,3,3,3,4,3,3,3,3,3,3,3,3,3,3,3)
+y<-c(0,1,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0)
+foo_pt21<-crm(prior,target,y,level)
+foo_pt21
+
+#patient22
+level<-c(3,4,2,2,3,3,3,4,3,3,3,3,3,3,3,3,3,3,3,3)
+y<-c(0,1,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0)
+foo_pt22<-crm(prior,target,y,level)
+foo_pt22
+
+#patient23
+level<-c(3,4,2,2,3,3,3,4,3,3,3,3,3,3,3,3,3,3,3,3)
+y<-c(0,1,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0)
+foo_pt22<-crm(prior,target,y,level)
+foo_pt22
+
+#patient24
+level<-c(3,4,2,2,3,3,3,4,3,3,3,3,3,3,3,3,3,3,3,3)
+y<-c(0,1,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0)
+foo_pt22<-crm(prior,target,y,level)
+foo_pt22
+
+#patient25
+level<-c(3,4,2,2,3,3,3,4,3,3,3,3,3,3,3,3,3,3,3,3)
+y<-c(0,1,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0)
+foo_pt22<-crm(prior,target,y,level)
+foo_pt22
+
+***************************
+  
+
+
+P=c(0.05,0.1,0.2,0.35,0.5,0.7)                    #les proba d'avoir de toxicitÃ© pour les 6 doses
+M <- data.frame(matrix( nrow = 30, ncol = 6))      #Stimuler 30 personnes par 6 doses et pour chaque dose on a DLT ou NDLT
+for(i in 1:6){M[,i]=c(rbinom(30,1,P[i]))}         #O NDLT et 1 DLT
+set.seed(10)                                      #Pour avoir la meme matrice M pour tout le monde
+M                                                 #Notre base de donnÃ©es
+library(dfcrm)                                    #On applique le CRM
+level=c(1)
+s <- crm(P,0.2,M[1,1],level)                      #Va nous donner la dose a recommander pour le patient suivant (la dose 4)
+y <- c(M[1,1])
+for (i in 2:30){y <- c(y,M[i,s$mtd])
+level <- c(level,s$mtd)
+s <- crm(P,0.2,y,level)}
+DR<-function(n,target,P){   
+  M <- matrix(rbinom(n*length(P),1,P),ncol=length(P), nrow = n, byrow=T)
+  level=c(1)
+  s <- crm(P,target,M[1,1],level)                      
+  y <- c(M[1,1])
+  for (i in 2:n){y <- c(y,M[i,s$mtd])
+  level <- c(level,s$mtd)
+  s <- crm(P,0.2,y,level)}
+  s$mtd}
+k<-DR(30,0.2,P)
+k
+DRRR <- function(N,n,target,P){
+  k <- c()
+  for(i in 1:N){
+    k <- c(k,DR(n,target,P))
+  }
+  return(k)
+}
